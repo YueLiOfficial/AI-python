@@ -5,7 +5,7 @@ class DeviceRepo:
 
     def __init__(self):
         self.conn = pymysql.connect(
-            host='localhost', 
+            host='127.0.0.1', 
             port=3306,
             user='root',
             password='root123456',
@@ -57,7 +57,7 @@ class DeviceRepo:
 if __name__ == "__main__":
     repo = DeviceRepo()
 
-    repo.add_device('E-104', '压力变送器', '传感器')
+    # repo.add_device('E-104', '压力变送器', '传感器')
     print(repo.find_by_code('E-101'))
     repo.set_status('E104', False)
     for d in repo.list_all():
