@@ -1,0 +1,14 @@
+# 数据集
+*.csv
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+.vscode/
