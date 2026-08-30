@@ -1,9 +1,6 @@
 # 数据集
 *.csv
 *.zip
-./4_numpy_pandas/data/
-./5_ML/data/
-./6_DL/data/
 
 # Python
 __pycache__/
