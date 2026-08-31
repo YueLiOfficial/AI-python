@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
 def load_digit_data():
-    df = pd.read_csv('../data/train.csv')
+    df = pd.read_csv('./data/train.csv')
 
     # 划分输入特征和输出特征
     X = df.drop('label', axis=1)
