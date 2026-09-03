@@ -5,7 +5,10 @@
 import pandas as pd
 import torch
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
 
 def load_digit_data():
     df = pd.read_csv('./data/train.csv')
@@ -32,8 +35,53 @@ def load_digit_data():
 
     return x_train, x_test, y_train, y_test
 
-if __name__ == '__main__':
-    x_train, x_test, y_train, y_test = load_digit_data()
+def load_house_prices_data():
+    df = pd.read_csv("./data/house_prices.csv")
 
-    print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
+    df.drop("Id", axis=1, inplace=True)
+
+    X = df.drop("SalePrice", axis=1)
+    y = df["SalePrice"]
+    
+    num_cols = X.select_dtypes(include="number").columns.to_list()
+    cat_cols = X.select_dtypes(include="str").columns.to_list()
+
+    num_cols.remove("MSSubClass")
+    cat_cols.append("MSSubClass")
+
+    num_pipeline = Pipeline([
+        ("mean", SimpleImputer(strategy="mean")),
+        ("scaler", StandardScaler())
+    ])
+
+    cat_pipeline = Pipeline([
+        ("fillna", SimpleImputer(strategy="constant", fill_value="missing")),
+        ("encoder", OneHotEncoder(handle_unknown="ignore", sparse_output=False))
+    ])
+
+    transformer = ColumnTransformer([
+        ("num_cols", num_pipeline, num_cols),
+        ("cat_cols", cat_pipeline, cat_cols)
+    ])
+
+    x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=42)
+
+    x_train = transformer.fit_transform(x_train)
+    x_test = transformer.transform(x_test)
+
+    x_train = torch.tensor(x_train, dtype=torch.float)
+    x_test = torch.tensor(x_test, dtype=torch.float)
+    y_train = torch.tensor(y_train.values)
+    y_test = torch.tensor(y_test.values)
+
+    return x_train, x_test, y_train, y_test
+
+
+if __name__ == '__main__':
+    # x_train, x_test, y_train, y_test = load_digit_data()
+
+    # print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
+    # print(x_train.dtype, x_test.dtype, y_train.dtype, y_test.dtype)
+
+    x_train, x_test, y_train, y_test = load_house_prices_data()
     print(x_train.dtype, x_test.dtype, y_train.dtype, y_test.dtype)
