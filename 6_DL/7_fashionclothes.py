@@ -5,7 +5,7 @@ from torch import nn, optim
 
 batch_size = 128
 lr = 0.01
-epochs = 500
+epochs = 20
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -18,31 +18,33 @@ eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size)
 
 # 定义模型
 model = nn.Sequential(
-    nn.Conv2d(1, 6, kernel_size=5, stride=1, padding=2),
-    nn.Sigmoid(),
-    nn.AvgPool2d(2, 2),
-    nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=0),
-    nn.Sigmoid(),
-    nn.AvgPool2d(2, 2),
+    nn.Conv2d(1, 8, kernel_size=3, stride=1, padding=1),
+    nn.ReLU(),
+    nn.AvgPool2d(2, 2), # 输出8，14，14
+
+    nn.Conv2d(8, 16, kernel_size=5, stride=1, padding=0), # 输出16，10，10
+    nn.ReLU(),
+    nn.AvgPool2d(2, 2), # 输出16，5，5
+
     nn.Flatten(),
-    nn.Linear(400, 120),
-    nn.Sigmoid(),
-    nn.Linear(120, 84),
-    nn.Sigmoid(),
-    nn.Linear(84, 10)
+    nn.Linear(16*5*5, 256),
+    nn.ReLU(),
+    nn.Linear(256, 128),
+    nn.ReLU(),
+    nn.Linear(128, 10)
 )
 
 model.to(device)
 
-# 定义损失函数
-loss_fn = nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr = lr)
-
 def init_weights(layers):
     if isinstance(layers, nn.Linear) or isinstance(layers, nn.Conv2d):
-        nn.init.xavier_normal_(layers.weight)
+        nn.init.kaiming_uniform_(layers.weight)
 
 model.apply(init_weights)
+
+# 定义损失函数
+loss_fn = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr = lr)
 
 # 训练模型
 for epoch in range(epochs):
