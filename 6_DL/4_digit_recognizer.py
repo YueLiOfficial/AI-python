@@ -20,7 +20,7 @@ batch_size = 64
 x_train, x_val, y_train, y_val = load_digit_data()
 
 train_dataset = TensorDataset(x_train, y_train)
-train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
+train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_dataset = TensorDataset(x_val, y_val)
 val_dataloader = DataLoader(val_dataset, batch_size=batch_size, drop_last=True)
 

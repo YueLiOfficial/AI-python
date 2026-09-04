@@ -9,6 +9,7 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
+from torch.utils.data import TensorDataset, DataLoader
 
 def load_digit_data():
     df = pd.read_csv('./data/train.csv')
@@ -77,11 +78,39 @@ def load_house_prices_data():
     return x_train, x_test, y_train, y_test
 
 
+def load_clothes_data():
+    train_df = pd.read_csv("./data/fashion-mnist_train.csv")
+    test_df = pd.read_csv("./data/fashion-mnist_test.csv")
+
+    x_train = train_df.drop("label", axis=1)
+    y_train = train_df["label"]
+    x_test = test_df.drop("label", axis=1)
+    y_test = test_df["label"]
+
+    scaler = MinMaxScaler()
+    x_train = scaler.fit_transform(x_train)
+    x_test = scaler.transform(x_test)
+
+    x_train = torch.tensor(x_train, dtype=torch.float)
+    x_test = torch.tensor(x_test, dtype=torch.float)
+    y_train = torch.tensor(y_train)
+    y_test = torch.tensor(y_test)
+    
+    x_train = x_train.reshape(-1, 1, 28, 28)
+    x_test = x_test.reshape(-1, 1, 28, 28)
+
+    train_dataset = TensorDataset(x_train, y_train)
+    test_dataset = TensorDataset(x_test, y_test)
+
+    return train_dataset, test_dataset
+
 if __name__ == '__main__':
     # x_train, x_test, y_train, y_test = load_digit_data()
 
     # print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
     # print(x_train.dtype, x_test.dtype, y_train.dtype, y_test.dtype)
 
-    x_train, x_test, y_train, y_test = load_house_prices_data()
-    print(x_train.dtype, x_test.dtype, y_train.dtype, y_test.dtype)
+    # x_train, x_test, y_train, y_test = load_house_prices_data()
+    # print(x_train.dtype, x_test.dtype, y_train.dtype, y_test.dtype)
+
+    load_clothes_data()

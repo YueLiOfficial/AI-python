@@ -15,7 +15,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 x_train, x_eval, y_train, y_eval = load_house_prices_data()
 
 train_dataset = TensorDataset(x_train, y_train)
-train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True, drop_last=True)
+train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
 eval_dataset = TensorDataset(x_eval, y_eval)
 eval_dataloader = DataLoader(eval_dataset, batch_size=32)
