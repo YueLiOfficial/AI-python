@@ -1,0 +1,30 @@
+from pathlib import Path
+
+ROOT_PATH = Path(__file__).parent.parent
+PROCESSED_DATA_DIR_PATH = ROOT_PATH / "data/processed"
+RAW_DATA_DIR_PATH = ROOT_PATH / "data/raw"
+LOGS_DIR_PATH = ROOT_PATH / "logs"
+MODELS_DIR_PATH = ROOT_PATH / "models"
+
+RAW_DATA_FILE = RAW_DATA_DIR_PATH / "cmn.txt"
+TRAIN_DATA_FILE = MODELS_DIR_PATH / "train.jsonl"
+TEST_DATA_FILE = MODELS_DIR_PATH / "test.jsonl"
+
+ZH_VOCAB_FILE = MODELS_DIR_PATH / "zh_vocab.txt"
+EN_VOCAB_FILE = MODELS_DIR_PATH / "en_vocab.txt"
+
+MODEL_FILE = MODELS_DIR_PATH / "best_model.pt"
+
+PAD_TOKEN = "<PAD>"
+UNK_TOKEN = "<UNK>"
+SOS_TOKEN = "<SOS>"
+EOS_TOKEN = "<EOS>"
+
+BATCH_SIZE = 64
+D_MODEL = 128
+N_HEAD = 4
+NUM_ENCODER_LAYERS = 2
+NUM_DECODER_LAYERS = 2
+MAX_LEN = 128
+LR = 1e-3
+EPOCHS = 100
