@@ -40,7 +40,7 @@ def predict(model, text, src_tokenizer, tgt_tokenizer, device):
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    text = "嘿，你！你在干什么？"
+    text = "你叫什么名字"
 
     src_tokenizer = ZhTokenizer.from_vocab(ZH_VOCAB_FILE)
     tgt_tokenizer = EnTokenizer.from_vocab(EN_VOCAB_FILE)

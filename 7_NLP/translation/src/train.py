@@ -26,7 +26,7 @@ def train():
     min_loss = float("inf")
 
     for epoch in range(EPOCHS):
-        print(f"正在训练{epoch}/{EPOCHS}...")
+        print(f"正在训练{epoch + 1}/{EPOCHS}...")
         loss = train_one_epoch(loader, model, loss_fn, optimizer, device)
         print(f"训练完成, 损失为{loss}")
 
