@@ -38,13 +38,14 @@ def predict(model, text, src_tokenizer, tgt_tokenizer, device):
     print(sentence)
 
 if __name__ == "__main__":
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() 
+                          else "mps" if torch.backends.mps.is_available() else "cpu")
 
-    text = "你叫什么名字"
+    text = "你叫什么名字?"
 
     src_tokenizer = ZhTokenizer.from_vocab(ZH_VOCAB_FILE)
     tgt_tokenizer = EnTokenizer.from_vocab(EN_VOCAB_FILE)
 
-    model = torch.load(MODEL_FILE, weights_only=False).to(device)
+    model = torch.load(MODEL_FILE, map_location=device, weights_only=False).to(device)
 
     predict(model, text, src_tokenizer, tgt_tokenizer, device)

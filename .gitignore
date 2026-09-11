@@ -13,3 +13,6 @@ __pycache__/
 # PyCharm
 .idea/
 .vscode/
+
+# 模型文件
+**/bert-base-chinese/
