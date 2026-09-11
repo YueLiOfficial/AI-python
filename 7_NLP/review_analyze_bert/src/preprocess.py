@@ -34,6 +34,7 @@ def preprocess():
 
         batch["input_ids"] = encoded["input_ids"]
         batch["attention_mask"] = encoded["attention_mask"]
+        batch["token_type_ids"] = encoded["token_type_ids"]
 
         return batch
 
@@ -52,22 +53,24 @@ def get_loader():
 
     train_dataset.set_format(
         type="torch",
-        columns=["input_ids", "label", "attention_mask"]
+        columns=["input_ids", "label", "attention_mask", "token_type_ids"]
     )
 
     test_dataset.set_format(
         type="torch",
-        columns=["input_ids", "label", "attention_mask"]
+        columns=["input_ids", "label", "attention_mask", "token_type_ids"]
     )
 
-    train_dataloader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True) # type: ignore
-    test_dataloader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=True) # type: ignore
+    train_dataloader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+    test_dataloader = DataLoader(test_dataset, batch_size=BATCH_SIZE)
 
-    return train_dataloader, test_dataloader # type: ignore
+    return train_dataloader, test_dataloader
     
 
 if __name__ == "__main__":
     preprocess()
     train_dataloader, test_dataloader = get_loader()
 
-    print(train_dataloader)
+    for batch in train_dataloader:
+        print(batch)
+        break

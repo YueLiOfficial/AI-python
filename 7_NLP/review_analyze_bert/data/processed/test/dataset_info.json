@@ -24,6 +24,13 @@
         "_type": "Value"
       },
       "_type": "List"
+    },
+    "token_type_ids": {
+      "feature": {
+        "dtype": "int8",
+        "_type": "Value"
+      },
+      "_type": "List"
     }
   },
   "homepage": "",
