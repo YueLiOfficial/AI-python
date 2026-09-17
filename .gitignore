@@ -16,3 +16,5 @@ __pycache__/
 
 # 模型文件
 **/bert-base-chinese/
+*.pt
+**/models
