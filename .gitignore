@@ -2,6 +2,7 @@
 *.csv
 *.zip
 *.bz2
+**/assets
 
 # Python
 __pycache__/
@@ -18,3 +19,5 @@ __pycache__/
 **/bert-base-chinese/
 *.pt
 **/models
+
+.env
