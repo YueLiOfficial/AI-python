@@ -19,5 +19,6 @@ __pycache__/
 **/bert-base-chinese/
 *.pt
 **/models
+**/bge*
 
 .env

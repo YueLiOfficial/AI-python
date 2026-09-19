@@ -6,7 +6,7 @@ from pathlib import Path
 load_dotenv()
 
 def upload_pdf_file():
-    token = os.getenv("MinerU_API_TOKEN")
+    token = os.getenv("MINERU_API_TOKEN")
     # token = "sk-EN2WnWNOzT1b5ShlsvXs9yNlATwfa1dCX47sW1c43bzTG8A2"
     url = "https://mineru.net/api/v4/file-urls/batch"
     header = {
