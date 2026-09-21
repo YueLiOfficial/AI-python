@@ -1,0 +1,22 @@
+[project]
+name = "10-deepagents"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "YueLiOfficial", email = "2325109577@qq.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "deepagents>=0.7.15",
+    "langchain>=1.4.2",
+    "python-dotenv>=1.2.3",
+    "tavily-python>=0.8.4",
+]
+
+[project.scripts]
+10-deepagents = "10_deepagents:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
