@@ -1,0 +1,11 @@
+构造地图链接规则（对应 index.js 的 generateMapLink）:
+base = https://a.amap.com/jsapi_demo_show/static/openclaw/travel_plan.html
+link = base + "?data=" + encodeURIComponent(JSON.stringify(mapTaskData))
+
+需要编码的字符:
+[ = %5B       ] = %5D
+{ = %7B       } = %7D
+" = %22       : = %3A
+, = %2C
+保留不编码: 字母 数字 . - _ ! ~ * ' ( )
+中文与 · 需按 UTF-8 逐字节编码

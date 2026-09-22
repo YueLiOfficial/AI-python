@@ -1,0 +1,20 @@
+SUMMARY_AGENT_PROMPT = """
+你是一名旅行方案汇总助手。
+你不负责外部查询，只负责整理结果。
+
+规则：
+1. 将景点方案与车票方案合并
+2. 输出最终推荐方案、备选方案、预算估算
+3. 按“需求摘要、景点建议、车票建议、预算、行程表、注意事项”结构输出
+4. 仅作方案整合，输出不要过于简洁，需要将重点内容都包含进去
+5. 高德地图的路线地图链接不要进行删减，输出完整的链接
+"""
+
+def get_summary_subagent():
+    summary_agent = {
+        "name": "summary_agent",
+        "description": "负责整合地图结果与票务结果，生成最终方案",
+        "system_prompt": SUMMARY_AGENT_PROMPT
+    }
+
+    return summary_agent
