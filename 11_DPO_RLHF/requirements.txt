@@ -73,6 +73,8 @@ tensorboard==2.20.0
 tensorboard-data-server==0.7.2
 tiktoken==0.12.0
 tokenizers==0.22.2
+torch @ https://download.pytorch.org/whl/cu128/torch-2.10.0%2Bcu128-cp312-cp312-win_amd64.whl ; sys_platform == "win32" and platform_machine == "AMD64"
+torch @ https://download.pytorch.org/whl/cu128/torch-2.10.0%2Bcu128-cp312-cp312-manylinux_2_28_x86_64.whl ; sys_platform == "linux" and platform_machine == "x86_64"
 tqdm==4.67.3
 transformers==5.2.0
 trl==0.24.0

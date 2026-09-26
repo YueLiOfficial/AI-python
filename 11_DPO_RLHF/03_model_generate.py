@@ -34,6 +34,6 @@ result = model.generate(input_ids, max_new_tokens=500, eos_token_id=151645)
 res_token_ids = result[:, len(token_ids):]
 
 # 解码
-res_text = tokenizer.decode(res_token_ids[0])
+res_text = tokenizer.decode(res_token_ids, skip_special_tokens=True)
 
 print(res_text)
